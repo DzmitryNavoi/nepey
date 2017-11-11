@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="UTF-8">
+      <title> ANKETA_inner_ESMA5</title>
+    </head> 
+   <body>
+       <script>
+'use strict';
+
+var family=prompt('Введите вашу фамилию','');  
+var name=prompt('Введите ваше имя','');  
+var surname=prompt('Введите ваше отчество','');  
+var years=prompt('Введите ваш возраст в годах',''); 
+var pol=confirm('Ваш пол мужской?');
+
+var days=years; days*=365;
+var future=parseInt(years); future+=5; 
+        
+var mail=('ваш пол: ')
+var mailp=('вы на пенсии: ')
+ 
+mail=(pol==true)?mail=mail + "мужской": mail=mail + "женский";
+mailp=(mail=="мужской",years >= 60)?mailp=mailp+'да': 
+(mail=="женский",years >= 55)?mailp=mailp+'да':mailp=mailp+'нет';
+
+
+document.body.innerHTML = ('ваше ФИО: ' + family + " " + name + " " + surname + '<br>'+ 'ваш возраст в годах: ' +  years + '<br>' + "ваш возраст в днях: " + days + '<br>' + 'через 5 лет вам будет: '+ future +'<br>'+ mail +'<br>'+ mailp)
+</script>
+</body>
+</html>       
