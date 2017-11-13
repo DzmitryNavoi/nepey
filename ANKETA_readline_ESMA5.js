@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html>
-    <head>
-      <meta charset="UTF-8">
-      <title> ANKETA_readline_ESMA5</title>
-    </head> 
-   <body>
-       <script>
 'use strict';
 
 
