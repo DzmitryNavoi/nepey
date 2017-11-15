@@ -8,7 +8,8 @@
         a[i]=a[nextIndex];
         a[nextIndex] = x;
     }
-    for (var i=(center+1), j=1; i< ((Math.floor(a.length*2/3)+1)); i++) {
+     var quarter = Math.floor(a.length*2/3)+1;
+    for (var i=(center+1), j=1; i< quarter; i++) {
         var nextIndex = a.length - j;   
         var x =a[i];
         a[i]=a[nextIndex];
