@@ -14,7 +14,7 @@ const result = {
 }
 function askFamily() {
     const rl = prompt();
-    rl.question('Введите вашу фамилию ', (answer) => {
+    rl.question('Введите вашу фамилию ', function (answer) {
         rl.close();
         if (!answer) {
             console.log('поле фимилии не может быть пустым.');
@@ -28,7 +28,7 @@ function askFamily() {
 }
 function askName() {
   const rl = prompt();
-  rl.question('Введите ваше имя ', (answer) => {
+  rl.question('Введите ваше имя ', function (answer) {
       rl.close();
       if (!answer) {
           console.log('поле имени не может быть пустым.');
@@ -42,7 +42,7 @@ function askName() {
 }
 function askSurname() {
   const rl = prompt();
-  rl.question('Введите ваше отчество ', (answer) => {
+  rl.question('Введите ваше отчество ', function (answer) {
       rl.close();
       if (!answer) {
           console.log('поле отчества не может быть пустым.');
@@ -58,7 +58,7 @@ function askSurname() {
 
 function askAge() {
     const rl = prompt();
-    rl.question('Введите ваш возраст в годах ', (answer) => {
+    rl.question('Введите ваш возраст в годах ', function (answer) {
         rl.close();
         const age = +answer;
         if (isNaN(age)) {
