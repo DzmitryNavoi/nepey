@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="UTF-8">
+      <title> glasnie</title>
+    </head> 
+   <body>
+<script>
+'use strict';
+//1.вариант через циклы без функции
+//var str=prompt('введите набор русских букв',''); 
+//console.log(str);
+//var glasn='аоиеёэыуюя';
+//console.log(glasn);
+//var res=0; 
+//  for (var i=0; i<str.length; i++){
+    //var isVowels=false;
+    //for (var j=0; j<glasn.length; j++){
+    //if (str[i] === glasn[j] ){
+    //isVowels=true;
+    //res=res+1;
+    //break;}
+      // } 
+     //} 
+ //console.log(res);    
+//2.вариант с функцией, но она не чистая, а как сделать ее чистой не догоняю
+var str = prompt('введите набор русских букв',''); 
+console.log(str);
+function vowels() {
+  var message = str.match(/[аоиеёэыуюя]/igm).length;
+ console.log(message);
+}
+vowels();
+</script>
+</body>
+</html>
