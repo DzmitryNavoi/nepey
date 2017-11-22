@@ -23,14 +23,18 @@
       // } 
      //} 
  //console.log(res);    
-//2.вариант с функцией, но она не чистая, а как сделать ее чистой не догоняю
-var str = prompt('введите набор русских букв',''); 
-console.log(str);
-function vowels() {
+//2.вариант с функцией
+
+
+
+function showMessage() {
+  var str = prompt('введите набор русских букв','');
   var message = str.match(/[аоиеёэыуюя]/igm).length;
- console.log(message);
-}
-vowels();
+  return message;
+  }
+  
+ console.log(showMessage());
+  
 </script>
 </body>
 </html>
