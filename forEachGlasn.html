@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="UTF-8">
+      <title> glasnie</title>
+    </head> 
+   <body>
+<script>
+'use strict';
+//1.вариант через циклы без функции
+//var str=prompt('введите набор русских букв',''); 
+//console.log(str);
+//var glasn='аоиеёэыуюя';
+//console.log(glasn);
+//var res=0; 
+//  for (var i=0; i<str.length; i++){
+    //var isVowels=false;
+    //for (var j=0; j<glasn.length; j++){
+    //if (str[i] === glasn[j] ){
+    //isVowels=true;
+    //res=res+1;
+    //break;}
+      // } 
+     //} 
+ //console.log(res);    
+//2.вариант с функцией
+
+
+
+//function showMessage() {
+  //var str = prompt('введите набор русских букв','');
+  //var message = str.match(/[аоиеёэыуюя]/igm).length;
+  //return message;
+  //}
+  
+ //console.log(showMessage());
+
+
+    var str=['ы', 'э', 'ю', 'л','о', 'в','ы', 'ы'];
+     console.log(str);
+     var glasn=['а','о','и','е','ё','э','ы','у','ю','я'];
+     console.log(glasn);
+     var res=0; 
+    str.forEach(function f(i,vl,str){  
+         glasn.forEach(function g(j,v,glasn){
+     if (i == j) {
+         res=res+1;
+       }
+     }); 
+   }); 
+   console.log(res); 
+
+  
+</script>
+</body>
+</html>
