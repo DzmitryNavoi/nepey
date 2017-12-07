@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mouse_move</title>
+    
+<style>
+    .borderSolid {
+	border: 1px solid black;
+	height: 600px;
+	width: 1000px;
+}
+.wrapp {
+	margin-top: 70px;
+	margin-left: 70px;
+}
+.imagesSize {
+	height: 150px;
+}
+#image1 {
+	position: fixed;
+	top: 120px;
+	left: 100px;
+}
+#image2 {
+	position: fixed;
+	top: 120px;
+	left: 350px;
+}
+#image3{
+	position: fixed;
+	top: 120px;
+	left: 600px;
+}
+#image4 {
+	position: fixed;
+	top: 120px;
+	left: 850px;
+}
+    
+</style>    
+</head>
+<body>
+	<div class="borderSolid wrapp" id="wrapper">
+		<img src="http://zastropi.narod.ru/stati/dorogi/samaya_bolshaya_doroga_v_mire_1.jpg" class="imagesSize " id="image1">
+		<img src="http://zastropi.narod.ru/stati/dorogi/samaya_bolshaya_doroga_v_mire_1.jpg" class="imagesSize " id="image2">
+		<img src="http://effloresce.ru/wp-content/uploads/2016/06/%D1%82%D1%80%D0%B8-%D0%B4%D0%BE%D1%80%D0%BE%D0%B3%D0%B8-%D1%82%D1%80%D0%B8-%D0%BF%D1%83%D1%82%D0%B83.jpg" class="imagesSize " id="image3">
+		<img src="https://img00.deviantart.net/8265/i/2010/024/e/0/highway_at_night_by_renna99.jpg" class="imagesSize " id="image4">
+	</div>
+	
+	<script>
+    "use strict";
+    
+    var wrapper = document.getElementById("wrapper"),
+      pictureImage = null, //какая картинка сейчас перетаскивается
+      pictureShiftX,
+      pictureShiftY;
+    
+    var childWrapp = wrapper.getElementsByTagName('img');
+    
+      for (var i = 0; i < childWrapp.length; i++) {
+        AddEventHandler(childWrapp[i], "mousedown", pictureStart, false);
+        AddEventHandler(childWrapp[i], "mouseover", mouseOver, false);
+        AddEventHandler(childWrapp[i], "mouseout", mouseOut, false);
+      }
+    
+    
+    function mouseOver(EO) {
+      EO = EO || window.event;
+      PreventDefault(EO);
+    
+      EO.target.style.border = "5px dashed red";
+    }
+    
+    
+    function mouseOut(EO) {
+      EO = EO || window.event;
+      PreventDefault(EO);
+    
+      EO.target.style.border = "none";
+    }
+    
+    function pictureStart (EO) {
+      EO = EO || window.event;
+      PreventDefault(EO);
+    
+      pictureImage = EO.target;
+    
+    
+    // Картинка, перетаскивание которой началось, должна оказываться выше (ближе к глазам), чем остальные.  
+      wrapper.appendChild(pictureImage);
+    
+      pictureImage.style.border = "15px solid blue";
+      pictureImage.style.position = "absolute";
+    
+      var mouseX = EO.pageX,
+          mouseY = EO.pageY,
+          imageX = pictureImage.offsetLeft,
+          imageY = pictureImage.offsetTop;
+    
+      pictureShiftX = mouseX - imageX;
+      pictureShiftY = mouseY - imageY;
+    
+      window.onmousemove = pictureMove;
+      window.onmouseup = pictureStop;
+    }
+    
+    
+    function pictureMove (EO) {
+      EO = EO || window.event;
+      PreventDefault(EO);
+    
+      var mouseX = EO.pageX,
+          mouseY = EO.pageY,
+          imageX = mouseX - pictureShiftX,
+          imageY = mouseY - pictureShiftY;
+    
+      pictureImage.style.left = imageX + "px";
+      pictureImage.style.top = imageY + "px";
+    }
+    
+    
+    function pictureStop () {
+      window.onmousemove = null;
+      window.onmouseup = null;
+    
+      pictureImage.style.border = "none";
+    }
+    
+    
+    // установка обработчика событий
+    function AddEventHandler(Elem,EventName,HandlerFunc,CaptureFlag) {
+      if ( Elem.addEventListener )
+        Elem.addEventListener(EventName,HandlerFunc,CaptureFlag); // современные браузеры и IE >=9
+      else
+        if ( !CaptureFlag ) // перехват вообще невозможен
+        {
+          var EventName2='on'+EventName;
+          if ( Elem.attachEvent ) // IE <=8
+          {
+            // создаём обёртку для обработчика, чтобы обработчику правильно передавался this
+            var IEHandlerF=function() { HandlerFunc.call(Elem); } 
+            Elem.attachEvent(EventName2,IEHandlerF);
+            var StoreName="__IEHandlerF_"+EventName;
+            Elem[StoreName]=IEHandlerF; // сохраняем ссылку на обёртку, чтобы найти её при удалении обработчика
+          }
+          else // устаревшие браузеры
+            if ( !Elem[EventName2] )
+              Elem[EventName2]=HandlerFunc; // не сработает если несколько обработчиков одного события
+        }
+    }
+    
+    // отмена обработки события по умолчанию
+    // EO - объект события
+    function PreventDefault(EO) {
+      if ( EO.preventDefault )
+          EO.preventDefault(); 
+      else
+          EO.returnValue=false;
+    }
+</script>
+
+
+
+</body>
+</html>
