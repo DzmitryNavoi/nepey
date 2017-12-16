@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+    <title>CLOCK_SVG</title>
+    <meta charset="utf-8">
+    
+    
+</head>
+<body>
+    <svg id=wrapper width="300" height="300"><svg>
+   
+<script>
+"use strict";
+
+    var svg = document.getElementById("wrapper"), 
+        svgCenterX,
+	    svgCenterY,
+        circleWrapperX=150,
+        circleWrapperY=150,
+        radius = 120, // радиус (расстояние)
+        angleValue = 0, // угол
+        distanceOfDigits = 30, // расстояние(в градусах) между цифрами на часах
+        time = new Date(), //текущее время
+        hoursDeg = 30 * (time.getHours() + (1 / 60) * time.getMinutes()), //определяем по времени где должна быть стрелка часов
+        minutesDeg = 6 * (time.getMinutes() + (1 / 60) * time.getSeconds()), //определяем по времени где должна быть стрелка минут
+        secondsDeg = 6 * time.getSeconds() - 6, //определяем по времени где должна быть стрелка секунд
+        hourDigits = 12; //цифры часов (например 1,2,3,4,5,6,7,8,9,10,11,12)
+   
+        
+      
+        svgCenterX = svg.getBoundingClientRect().left + svg.getBoundingClientRect().width / 2; //узнаем центр svg по X
+        svgCenterY = svg.getBoundingClientRect().top + svg.getBoundingClientRect().height / 2; //узнаем центр svg по Y
+        
+        // рисуем большой циферблат
+        var  circleWrapper = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circleWrapper.setAttribute("cx", circleWrapperX);
+        circleWrapper.setAttribute("cy", circleWrapperY);
+        circleWrapper.setAttribute("r", "150");
+        circleWrapper.setAttribute("fill"," #FCCA66");
+        svg.appendChild(circleWrapper);
+        
+                      
+        // создаем маленькие кружочки и цифры в них
+        for (var i = 1; i <= hourDigits; i++) {
+        var wrapChildElem = document.createElement("svg"),// создаем svg (для номеров часов)
+            angle,
+            smallCircleCX,
+            smallCircleCY;
+    
+        angleValue += distanceOfDigits;
+        angle = angleValue / 180 * Math.PI;
+
+        smallCircleCX = Math.round(svgCenterX + radius * Math.sin(angle) - svg.getBoundingClientRect().left);
+	    smallCircleCY = Math.round(svgCenterY - radius * Math.cos(angle) - svg.getBoundingClientRect().top);
+       
+               
+       //рисуем кружочки
+        var circleChildElem = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circleChildElem.setAttribute("fill","#48B382");
+        circleChildElem.setAttribute("r","18");
+        circleChildElem.setAttribute("cx", smallCircleCX);
+        circleChildElem.setAttribute("cy",smallCircleCY);
+        svg.appendChild(circleChildElem);
+        
+                
+        //рисуем цифры
+        var digits=document.createElementNS("http://www.w3.org/2000/svg",'text');
+        digits.setAttribute("x", smallCircleCX);
+        digits.setAttribute("y",smallCircleCY);
+        digits.setAttribute("text-anchor", "middle");
+        digits.setAttribute("dominant-baseline", "central");
+        digits.style.fontSize='20';
+        digits.style.fill="black";
+        digits.textContent= i;
+        svg.appendChild(digits);
+        }
+         //рисуем часовую стрелку
+        var elemForArrowHoursHeight=50;
+        var elemForArrowHours=document.createElementNS("http://www.w3.org/2000/svg", "line");
+        elemForArrowHours.setAttribute("x1", svgCenterX - svg.getBoundingClientRect().left);
+        elemForArrowHours.setAttribute("y1", svgCenterY - elemForArrowHoursHeight - svg.getBoundingClientRect().top);
+        elemForArrowHours.setAttribute("x2", svgCenterX - svg.getBoundingClientRect().left);
+        elemForArrowHours.setAttribute("y2", svgCenterY);
+        elemForArrowHours.setAttribute('stroke', 'black');
+        elemForArrowHours.setAttribute('stroke-width', '9');
+        elemForArrowHours.setAttribute("stroke-linecap", "round");
+        svg.appendChild(elemForArrowHours);
+         
+          //рисуем минутную стрелку
+          var elemForArrowMinutesHeight=110;
+          var elemForArrowMinutes=document.createElementNS("http://www.w3.org/2000/svg", "line");
+          elemForArrowMinutes.setAttribute("x1", svgCenterX - svg.getBoundingClientRect().left);
+          elemForArrowMinutes.setAttribute("y1", svgCenterY - elemForArrowMinutesHeight - svg.getBoundingClientRect().top);
+          elemForArrowMinutes.setAttribute("x2", svgCenterX - svg.getBoundingClientRect().left);
+          elemForArrowMinutes.setAttribute("y2", svgCenterY);
+          elemForArrowMinutes.setAttribute('stroke', 'black');
+          elemForArrowMinutes.setAttribute('stroke-width', '4');
+          elemForArrowMinutes.setAttribute("stroke-linecap", "round");
+          svg.appendChild(elemForArrowMinutes);
+        
+        //рисуем секундную стрелку
+         var elemForArrowSecondsHeight=135;
+         var elemForArrowSeconds=document.createElementNS("http://www.w3.org/2000/svg", "line");
+         elemForArrowSeconds.setAttribute("x1", svgCenterX - svg.getBoundingClientRect().left);
+         elemForArrowSeconds.setAttribute("y1", svgCenterY - elemForArrowSecondsHeight - svg.getBoundingClientRect().top);
+         elemForArrowSeconds.setAttribute("x2", svgCenterX - svg.getBoundingClientRect().left);
+         elemForArrowSeconds.setAttribute("y2", svgCenterY);
+         elemForArrowSeconds.setAttribute('stroke', 'black');
+         elemForArrowSeconds.setAttribute('stroke-width', '2');
+         elemForArrowSeconds.setAttribute("stroke-linecap", "round");
+        svg.appendChild(elemForArrowSeconds); 
+        
+         
+        //рисуем электронные часы
+        var childElemForDigitalWatch = document.createElementNS("http://www.w3.org/2000/svg",'text');
+        childElemForDigitalWatch.setAttribute("x",  svgCenterX - '50');
+        childElemForDigitalWatch.setAttribute("y", svgCenterY - '50');
+        childElemForDigitalWatch.style.fontSize='25';
+        childElemForDigitalWatch.style.fill="black";
+        childElemForDigitalWatch.textContent= time;
+        svg.appendChild(childElemForDigitalWatch);
+       
+     
+    // определяем точку трансформации стрелок часов, минут, секунд по оси X и Y
+              elemForArrowHours.style.transformOrigin = "center 150px";
+              elemForArrowMinutes.style.transformOrigin = "center 150px";
+              elemForArrowSeconds.style.transformOrigin = "center 150px";
+
+         function arrows() {
+           
+             // электронные часы
+             var time = new Date(); //текущее время
+             childElemForDigitalWatch.innerHTML = time.toLocaleTimeString();
+             // секундная стрелка
+             secondsDeg += 6; //каждую секунду стрелка секунда будет двигать на 6 градусов
+             elemForArrowSeconds.style.transform = "rotate(" + secondsDeg + "deg)";
+             // минутная стрелка
+             minutesDeg += 6 * (1/60); //каждую секунду стрелка минута будет двигать на 6*(1/60) градусов
+             elemForArrowMinutes.style.transform = "rotate(" + minutesDeg + "deg)";
+             // часовая стрелка
+             hoursDeg += 6 * (1/360); //каждую секунду стрелка часа будет двигать на 6*(1/360) градусов
+             elemForArrowHours.style.transform = "rotate(" + hoursDeg + "deg)";
+        }
+  
+    window.onload = arrows(); // вызываем функцию arrows на момент загрузки страницы
+    window.setInterval (arrows, 1000); // устанавливаем setInterval на 1 секунду и выполняем код каждую секунду чтоб стрелки часов, минут и секунд обновляли положени каждую секунду
+
+          
+       
+   </script> 
+</body>
+</html>
